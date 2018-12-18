@@ -72,7 +72,7 @@ while True:
     df = df[df['candle_begin_time_GMT8'] < pd.to_datetime(run_time)]  # 去除target_time周期的数据
     df = signal_moving_average(df, para=para)
     signal = df.iloc[-1]['signal']
-    signal_str = signal.__str__()
+    signal_str = str(signal)
     email_content += '_产生交易信号_' + signal_str + '\n'
 
     # =====卖出品种
