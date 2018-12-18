@@ -2,14 +2,14 @@ from datetime import datetime, timedelta
 import pandas as pd
 from time import sleep
 import ccxt
-from Trade import next_run_time, place_order, get_okex_candle_data, auto_send_email
-from Signals import signal_moving_average, signal_bolling, signal_bolling_with_stop_lose
+from program.class9.Trade import next_run_time, place_order, get_okex_candle_data, auto_send_email
+from program.class8.Signals import signal_moving_average
 
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 
 """
 自动交易主要流程
- 
+
 # 通过while语句，不断的循环
 
 # 每次循环中需要做的操作步骤
@@ -27,11 +27,11 @@ exchange = ccxt.okex()  # 创建交易所，此处为okex交易所
 exchange.apiKey = '9c02dad0-7ab3-421f-9bea-7e8959c356bd'  # 此处加上自己的apikey和secret，都需要开通交易权限
 exchange.secret = '32C80E2D1C4B6C833656284BB2DD7B1F'
 
-symbol = 'BTC/USDT'  # 交易品种
+symbol = 'ETC/USDT'  # 交易品种
 base_coin = symbol.split('/')[-1]
 trade_coin = symbol.split('/')[0]
 
-para = [450, 4, 5]  # 策略参数
+para = [5, 60]  # 策略参数
 
 # =====主程序
 while True:
@@ -58,12 +58,6 @@ while True:
     while True:
         # 获取数据
         df = get_okex_candle_data(exchange, symbol, time_interval)
-        # =====将数据存入hdf文件中
-        # df.to_hdf('okb_data.h5',
-        #           key='all_data', mode='w')
-
-        # print(df)
-        # exit()
         # 判断是否包含最新的数据
         _temp = df[df['candle_begin_time_GMT8'] == (run_time - timedelta(minutes=int(time_interval.strip('m'))))]
         if _temp.empty:
@@ -74,7 +68,7 @@ while True:
 
     # ===产生交易信号
     df = df[df['candle_begin_time_GMT8'] < pd.to_datetime(run_time)]  # 去除target_time周期的数据
-    df = signal_bolling_with_stop_lose(df, para=para)
+    df = signal_moving_average(df, para=para)
     signal = df.iloc[-1]['signal']
     print('\n交易信号', signal)
 
@@ -83,15 +77,15 @@ while True:
         print('\n卖出')
         # 获取最新的卖出价格
         price = exchange.fetch_ticker(symbol)['bid']  # 获取买一价格
-        print(price)
         # 下单
-        # place_order(exchange, order_type='limit', buy_or_sell='sell', symbol=symbol, price=price * 0.98,amount=trade_coin_amount)
+        place_order(exchange, order_type='limit', buy_or_sell='sell', symbol=symbol, price=price * 0.98,
+                    amount=trade_coin_amount)
         # 邮件标题
-        # email_title += '_卖出_' + trade_coin
+        email_title += '_卖出_' + trade_coin
         # 邮件内容
-        # email_content += '卖出信息：\n'
-        # email_content += '卖出数量：' + str(trade_coin_amount) + '\n'
-        # email_content += '卖出价格：' + str(price) + '\n'
+        email_content += '卖出信息：\n'
+        email_content += '卖出数量：' + str(trade_coin_amount) + '\n'
+        email_content += '卖出价格：' + str(price) + '\n'
 
     # =====买入品种
     if trade_coin_amount == 0 and signal == 1:
@@ -100,16 +94,15 @@ while True:
         price = exchange.fetch_ticker(symbol)['ask']  # 获取卖一价格
         # 计算买入数量
         buy_amount = base_coin_amount / price
-        print(price)
-        print(buy_amount )
         # 获取最新的卖出价格
-        # place_order(exchange, order_type='limit', buy_or_sell='buy', symbol=symbol, price=price * 1.02,amount=buy_amount)
+        place_order(exchange, order_type='limit', buy_or_sell='buy', symbol=symbol, price=price * 1.02,
+                    amount=buy_amount)
         # 邮件标题
-        # email_title += '_买入_' + trade_coin
+        email_title += '_买入_' + trade_coin
         # 邮件内容
-        # email_content += '买入信息：\n'
-        # email_content += '买入数量：' + str(buy_amount) + '\n'
-        # email_content += '买入价格：' + str(price) + '\n'
+        email_content += '买入信息：\n'
+        email_content += '买入数量：' + str(buy_amount) + '\n'
+        email_content += '买入价格：' + str(price) + '\n'
 
     # =====发送邮件
     # 每个半小时发送邮件
