@@ -5,6 +5,7 @@ import ccxt
 from Trade import next_run_time, place_order, get_okex_candle_data, auto_send_email
 from Signals import signal_moving_average
 from dingding import send_dingding_msg
+import datetime
 
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 
@@ -82,6 +83,7 @@ while True:
         place_order(exchange, order_type='limit', buy_or_sell='sell', symbol=symbol, price=price * 0.98,
                     amount=trade_coin_amount)
         # 邮件标题
+        email_content += '_时间_' + datetime.datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
         email_content += '_卖出_' + trade_coin + '\n'
         # 邮件内容
         email_content += '卖出信息：\n'
@@ -99,6 +101,7 @@ while True:
         place_order(exchange, order_type='limit', buy_or_sell='buy', symbol=symbol, price=price * 1.02,
                     amount=buy_amount)
         # 邮件标题
+        email_content += '_时间_' + datetime.datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
         email_content += '_买入_' + trade_coin + '\n'
         # 邮件内容
         email_content += '买入信息：\n'
