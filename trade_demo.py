@@ -4,6 +4,7 @@ from time import sleep
 import ccxt
 from Trade import next_run_time, place_order, get_okex_candle_data, auto_send_email
 from Signals import signal_moving_average
+from dingding import send_dingding_msg
 
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 
@@ -31,7 +32,7 @@ symbol = 'ETC/USDT'  # 交易品种
 base_coin = symbol.split('/')[-1]
 trade_coin = symbol.split('/')[0]
 
-para = [5, 60]  # 策略参数
+para = [7, 30]  # 策略参数
 
 # =====主程序
 while True:
@@ -81,7 +82,7 @@ while True:
         place_order(exchange, order_type='limit', buy_or_sell='sell', symbol=symbol, price=price * 0.98,
                     amount=trade_coin_amount)
         # 邮件标题
-        email_title += '_卖出_' + trade_coin
+        email_content += '_卖出_' + trade_coin + '\n'
         # 邮件内容
         email_content += '卖出信息：\n'
         email_content += '卖出数量：' + str(trade_coin_amount) + '\n'
@@ -98,7 +99,7 @@ while True:
         place_order(exchange, order_type='limit', buy_or_sell='buy', symbol=symbol, price=price * 1.02,
                     amount=buy_amount)
         # 邮件标题
-        email_title += '_买入_' + trade_coin
+        email_content += '_买入_' + trade_coin + '\n'
         # 邮件内容
         email_content += '买入信息：\n'
         email_content += '买入数量：' + str(buy_amount) + '\n'
@@ -108,10 +109,9 @@ while True:
     # 每个半小时发送邮件
     if run_time.minute % 30 == 0:
         # 发送邮件
-        auto_send_email('your_email_address', email_title, email_content)
+        send_dingding_msg(email_content)
 
     # =====本次交易结束
-    print(email_title)
     print(email_content)
     print('=====本次运行完毕\n')
     sleep(6 * 1)
