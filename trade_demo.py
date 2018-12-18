@@ -72,7 +72,7 @@ while True:
     df = df[df['candle_begin_time_GMT8'] < pd.to_datetime(run_time)]  # 去除target_time周期的数据
     df = signal_moving_average(df, para=para)
     signal = df.iloc[-1]['signal']
-    print('\n交易信号', signal)
+    email_content += '_产生交易信号_' + signal + '\n'
 
     # =====卖出品种
     if trade_coin_amount > 0 and signal == 0:
@@ -84,6 +84,7 @@ while True:
                     amount=trade_coin_amount)
         # 邮件标题
         email_content += '_时间_' + datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
+        email_content += '_交易信号_' + signal + '\n'
         email_content += '_卖出_' + trade_coin + '\n'
         # 邮件内容
         email_content += '卖出信息：\n'
@@ -102,6 +103,7 @@ while True:
                     amount=buy_amount)
         # 邮件标题
         email_content += '_时间_' + datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
+        email_content += '_交易信号_' + signal + '\n'
         email_content += '_买入_' + trade_coin + '\n'
         # 邮件内容
         email_content += '买入信息：\n'
@@ -110,7 +112,7 @@ while True:
 
     # =====发送邮件
     # 每个半小时发送邮件
-    if run_time.minute % 30 == 0:
+    if run_time.minute % 15 == 0:
         # 发送邮件
         send_dingding_msg(email_content)
 
