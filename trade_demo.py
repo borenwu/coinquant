@@ -33,7 +33,7 @@ symbol = 'ETC/USDT'  # 交易品种
 base_coin = symbol.split('/')[-1]
 trade_coin = symbol.split('/')[0]
 
-para = [7, 30]  # 策略参数
+para = [5, 20]  # 策略参数
 
 # =====主程序
 while True:
