@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 import pandas as pd
 from time import sleep
 import ccxt
-from program.class9.Trade import next_run_time, place_order, get_okex_candle_data, auto_send_email
-from program.class8.Signals import signal_moving_average
+from Trade import next_run_time, place_order, get_okex_candle_data, auto_send_email
+from Signals import signal_moving_average
 
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 
