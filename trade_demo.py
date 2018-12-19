@@ -23,7 +23,7 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 """
 
 # =====参数
-time_interval = '10m'  # 间隔运行时间，不能低于5min
+time_interval = '15m'  # 间隔运行时间，不能低于5min
 
 exchange = ccxt.okex()  # 创建交易所，此处为okex交易所
 exchange.apiKey = '9c02dad0-7ab3-421f-9bea-7e8959c356bd'  # 此处加上自己的apikey和secret，都需要开通交易权限
@@ -115,7 +115,7 @@ while True:
 
     # =====发送邮件
     # 每个半小时发送邮件
-    if run_time.minute % 10 == 0:
+    if run_time.minute % 15 == 0:
         # 发送邮件
         send_dingding_msg(email_content)
 

@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="570a79b5-b4b2-4983-9670-8927e72b5be1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/ma_demo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/account_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/consts.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/ett_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/exceptions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/futures_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/lever_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/spot_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/swap_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okex/websocket.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trade_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/trade_demo.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="trade_demo.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="trade_demo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/trade_demo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="25" selection-start-line="25" selection-end-line="25" selection-end-column="40" />
+            <state relative-caret-position="1859">
+              <caret line="117" column="27" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -56,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ma_demo.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ma_demo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ma_demo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="122" column="51" selection-start-line="122" selection-start-column="51" selection-end-line="122" selection-end-column="51" />
+            <state relative-caret-position="296">
+              <caret line="119" column="26" selection-start-line="119" selection-start-column="26" selection-end-line="119" selection-end-column="26" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -99,6 +87,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>signal_bolling_with_stop_lose</find>
+      <find>websockets</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -112,8 +101,8 @@
         <option value="$PROJECT_DIR$/【案例3】寻找最优参数_temp.py" />
         <option value="$PROJECT_DIR$/Signals.py" />
         <option value="$PROJECT_DIR$/dingding-demo.py" />
-        <option value="$PROJECT_DIR$/trade_demo.py" />
         <option value="$PROJECT_DIR$/ma_demo.py" />
+        <option value="$PROJECT_DIR$/trade_demo.py" />
       </list>
     </option>
   </component>
@@ -343,7 +332,21 @@
       <option name="project" value="LOCAL" />
       <updated>1545180120028</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="6th">
+      <created>1545185451964</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1545185451964</updated>
+    </task>
+    <task id="LOCAL-00010" summary="6th">
+      <created>1545185621598</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1545185621598</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -407,7 +410,8 @@
     <MESSAGE value="3rd" />
     <MESSAGE value="4th" />
     <MESSAGE value="5th" />
-    <option name="LAST_COMMIT_MESSAGE" value="5th" />
+    <MESSAGE value="6th" />
+    <option name="LAST_COMMIT_MESSAGE" value="6th" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -599,23 +603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trade_demo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="25" selection-start-line="25" selection-end-line="25" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Signals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="208" column="23" selection-start-line="208" selection-start-column="21" selection-end-line="208" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Trade.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -634,10 +621,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ma_demo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="122" column="51" selection-start-line="122" selection-start-column="51" selection-end-line="122" selection-end-column="51" />
+        <state relative-caret-position="296">
+          <caret line="119" column="26" selection-start-line="119" selection-start-column="26" selection-end-line="119" selection-end-column="26" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Signals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="208" column="23" selection-start-line="208" selection-start-column="21" selection-end-line="208" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trade_demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1859">
+          <caret line="117" column="27" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
