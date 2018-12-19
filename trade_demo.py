@@ -5,6 +5,7 @@ import ccxt
 from Trade import next_run_time, place_order, get_okex_candle_data, auto_send_email
 from Signals import signal_moving_average
 from dingding import send_dingding_msg
+from OkcoinSpotAPI import OKCoinSpot
 
 
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
@@ -23,13 +24,18 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 """
 
 # =====参数
+okcoinRESTURL = 'www.okcoin.com'
+apikey = '9c02dad0-7ab3-421f-9bea-7e8959c356bd'
+secretkey = '32C80E2D1C4B6C833656284BB2DD7B1F'
 time_interval = '15m'  # 间隔运行时间，不能低于5min
 
 exchange = ccxt.okex()  # 创建交易所，此处为okex交易所
-exchange.apiKey = '9c02dad0-7ab3-421f-9bea-7e8959c356bd'  # 此处加上自己的apikey和secret，都需要开通交易权限
-exchange.secret = '32C80E2D1C4B6C833656284BB2DD7B1F'
+exchange.apiKey = apikey  # 此处加上自己的apikey和secret，都需要开通交易权限
+exchange.secret = secretkey
 
-symbol = 'ETC/USDT'  # 交易品种
+symbol = 'ETC/USDT'
+symbol_okex = 'etc_usdt'  # 交易品种
+type = '1min'
 base_coin = symbol.split('/')[-1]
 trade_coin = symbol.split('/')[0]
 
@@ -58,10 +64,13 @@ while True:
 
     # ===获取最新数据
     while True:
+        okcoinSpot = OKCoinSpot(okcoinRESTURL, apikey, secretkey)
         # 获取数据
-        df = get_okex_candle_data(exchange, symbol, time_interval)
+        df = okcoinSpot.getKline(symbol_okex, type)
+        # print(df)
+        # df = get_okex_candle_data(exchange, symbol, time_interval)
         # 判断是否包含最新的数据
-        _temp = df[df['candle_begin_time_GMT8'] == (run_time - timedelta(minutes=int(time_interval.strip('m'))))]
+        _temp = df[df['candle_begin_time_GMT8'] == (run_time - timedelta(minutes=int(type.strip('min'))))]
         if _temp.empty:
             print('获取数据不包含最新的数据，重新获取')
             continue
