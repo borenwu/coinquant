@@ -7,7 +7,6 @@ from Signals import signal_moving_average
 from dingding import send_dingding_msg
 from OkcoinSpotAPI import OKCoinSpot
 
-
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 
 """
@@ -86,41 +85,55 @@ while True:
 
     # =====卖出品种
     if trade_coin_amount > 0 and signal == 0:
-        print('\n卖出')
-        # 获取最新的卖出价格
-        price = exchange.fetch_ticker(symbol)['bid']  # 获取买一价格
-        # 下单
-        place_order(exchange, order_type='limit', buy_or_sell='sell', symbol=symbol, price=price * 0.98,
-                    amount=trade_coin_amount)
-        # 邮件标题
-        email_content += '_时间_' + datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
-        email_content += '_交易信号_' + signal_str + '\n'
-        email_content += '_卖出_' + trade_coin + '\n'
-        # 邮件内容
-        email_content += '卖出信息：\n'
-        email_content += '卖出数量：' + str(trade_coin_amount) + '\n'
-        email_content += '卖出价格：' + str(price) + '\n'
+        try:
+            print('\n卖出')
+            # 获取最新的卖出价格
+            price = exchange.fetch_ticker(symbol)['bid']  # 获取买一价格
+            # 下单
+            place_order(exchange, order_type='limit', buy_or_sell='sell', symbol=symbol, price=price * 0.98,
+                        amount=trade_coin_amount)
+            # 邮件标题
+            email_content += '_时间_' + datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
+            email_content += '_交易信号_' + signal_str + '\n'
+            email_content += '_卖出_' + trade_coin + '\n'
+            # 邮件内容
+            email_content += '卖出信息：\n'
+            email_content += '卖出数量：' + str(trade_coin_amount) + '\n'
+            email_content += '卖出价格：' + str(price) + '\n'
+        except Exception as err:
+            email_content += '_时间_' + datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
+            email_content += '_交易信号_' + signal_str + '\n'
+            email_content += '_卖出_' + trade_coin + '\n'
+            email_content += '_卖出操作出现问题，可能是余额太小_' + '\n'
+            continue
 
     # =====买入品种
     if trade_coin_amount == 0 and signal == 1:
-        print('\n买入')
-        # 获取最新的买入价格
-        price = exchange.fetch_ticker(symbol)['ask']  # 获取卖一价格
-        print("price: " + price)
-        # 计算买入数量
-        buy_amount = base_coin_amount / price
-        print("buy_amount: " + buy_amount)
-        # 获取最新的卖出价格
-        place_order(exchange, order_type='limit', buy_or_sell='buy', symbol=symbol, price=price * 1.02,
-                    amount=buy_amount)
-        # 邮件标题
-        email_content += '_时间_' + datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
-        email_content += '_交易信号_' + signal_str + '\n'
-        email_content += '_买入_' + trade_coin + '\n'
-        # 邮件内容
-        email_content += '买入信息：\n'
-        email_content += '买入数量：' + str(buy_amount) + '\n'
-        email_content += '买入价格：' + str(price) + '\n'
+        try:
+            print('\n买入')
+            # 获取最新的买入价格
+            price = exchange.fetch_ticker(symbol)['ask']  # 获取卖一价格
+            print("price: " + price)
+            # 计算买入数量
+            buy_amount = base_coin_amount / price
+            print("buy_amount: " + buy_amount)
+            # 获取最新的卖出价格
+            place_order(exchange, order_type='limit', buy_or_sell='buy', symbol=symbol, price=price * 1.02,
+                        amount=buy_amount)
+            # 邮件标题
+            email_content += '_时间_' + datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
+            email_content += '_交易信号_' + signal_str + '\n'
+            email_content += '_买入_' + trade_coin + '\n'
+            # 邮件内容
+            email_content += '买入信息：\n'
+            email_content += '买入数量：' + str(buy_amount) + '\n'
+            email_content += '买入价格：' + str(price) + '\n'
+        except Exception as err:
+            email_content += '_时间_' + datetime.now().strftime("%m-%d %H:%M:%S") + '\n'
+            email_content += '_交易信号_' + signal_str + '\n'
+            email_content += '_买入_' + trade_coin + '\n'
+            email_content += '_买入操作出现问题，可能是余额太小_' + '\n'
+            continue
 
     # =====发送邮件
     # 每个半小时发送邮件
