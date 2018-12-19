@@ -117,7 +117,7 @@ seceret_key = '56747E48FC506AE0418D71834F767FA6'
 passphrase = '871120wbr'
 url = 'wss://real.okex.com:10442/ws/v3?_compress=false'
 # asyncio.get_event_loop().run_until_complete(login(url, api_key, passphrase, seceret_key))
-channels = ["swap/ticker:ETC-USD-SWAP"]
+channels = ["swap/ticker:BTC-USD-SWAP"]
 # asyncio.get_event_loop().run_until_complete(subscribe(url, api_key, passphrase, seceret_key, channels))
 # asyncio.get_event_loop().run_until_complete(unsubscribe(url, api_key, passphrase, seceret_key, channels))
 asyncio.get_event_loop().run_until_complete(subscribe_without_login(url, channels))
