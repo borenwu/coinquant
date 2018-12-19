@@ -23,7 +23,7 @@ pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 """
 
 # =====参数
-time_interval = '15m'  # 间隔运行时间，不能低于5min
+time_interval = '10m'  # 间隔运行时间，不能低于5min
 
 exchange = ccxt.okex()  # 创建交易所，此处为okex交易所
 exchange.apiKey = '9c02dad0-7ab3-421f-9bea-7e8959c356bd'  # 此处加上自己的apikey和secret，都需要开通交易权限
@@ -33,7 +33,7 @@ symbol = 'ETC/USDT'  # 交易品种
 base_coin = symbol.split('/')[-1]
 trade_coin = symbol.split('/')[0]
 
-para = [5, 20]  # 策略参数
+para = [7, 30]  # 策略参数
 
 # =====主程序
 while True:
@@ -97,8 +97,10 @@ while True:
         print('\n买入')
         # 获取最新的买入价格
         price = exchange.fetch_ticker(symbol)['ask']  # 获取卖一价格
+        print("price: " + price)
         # 计算买入数量
         buy_amount = base_coin_amount / price
+        print("buy_amount: " + buy_amount)
         # 获取最新的卖出价格
         place_order(exchange, order_type='limit', buy_or_sell='buy', symbol=symbol, price=price * 1.02,
                     amount=buy_amount)
@@ -113,7 +115,7 @@ while True:
 
     # =====发送邮件
     # 每个半小时发送邮件
-    if run_time.minute % 15 == 0:
+    if run_time.minute % 10 == 0:
         # 发送邮件
         send_dingding_msg(email_content)
 
